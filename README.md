@@ -1,4 +1,4 @@
 subrunch
 ========
 
-Brunch pluging for Sublime Text 2
+Brunch plugin for Sublime Text 2
