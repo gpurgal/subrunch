@@ -1,15 +1,15 @@
 [  
-    { "keys": ["super+b", "super+b"], "command": "subrunch" },
+    { "keys": ["alt+super+b", "alt+super+b"], "command": "subrunch" },
     
-    { "keys": ["super+b", "super+m"], "command": "subrunch_list_modules", "args": {"module": "models"} },
-    { "keys": ["super+b", "super+c"], "command": "subrunch_list_modules", "args": {"module": "controllers"} },
-    { "keys": ["super+b", "super+v"], "command": "subrunch_list_modules", "args": {"module": "views"} },
-    { "keys": ["super+b", "super+t"], "command": "subrunch_list_modules", "args": {"module": "templates"} },
-    { "keys": ["super+b", "super+s"], "command": "subrunch_list_modules", "args": {"module": "styles"} },
+    { "keys": ["alt+super+b", "alt+super+m"], "command": "subrunch_list_modules", "args": {"module": "models"} },
+    { "keys": ["alt+super+b", "alt+super+c"], "command": "subrunch_list_modules", "args": {"module": "controllers"} },
+    { "keys": ["alt+super+b", "alt+super+v"], "command": "subrunch_list_modules", "args": {"module": "views"} },
+    { "keys": ["alt+super+b", "alt+super+t"], "command": "subrunch_list_modules", "args": {"module": "templates"} },
+    { "keys": ["alt+super+b", "alt+super+s"], "command": "subrunch_list_modules", "args": {"module": "styles"} },
 
-    { "keys": ["super+c", "super+m"], "command": "subrunch_corresponding_brunch_module", "args": {"module": "models"} },
-    { "keys": ["super+c", "super+c"], "command": "subrunch_corresponding_brunch_module", "args": {"module": "controllers"} },
-    { "keys": ["super+c", "super+v"], "command": "subrunch_corresponding_brunch_module", "args": {"module": "views"} },
-    { "keys": ["super+c", "super+t"], "command": "subrunch_corresponding_brunch_module", "args": {"module": "templates"} },
-    { "keys": ["super+c", "super+s"], "command": "subrunch_corresponding_brunch_module", "args": {"module": "styles"} }
+    { "keys": ["alt+super+c", "alt+super+m"], "command": "subrunch_corresponding_brunch_module", "args": {"module": "models"} },
+    { "keys": ["alt+super+c", "alt+super+c"], "command": "subrunch_corresponding_brunch_module", "args": {"module": "controllers"} },
+    { "keys": ["alt+super+c", "alt+super+v"], "command": "subrunch_corresponding_brunch_module", "args": {"module": "views"} },
+    { "keys": ["alt+super+c", "alt+super+t"], "command": "subrunch_corresponding_brunch_module", "args": {"module": "templates"} },
+    { "keys": ["alt+super+c", "alt+super+s"], "command": "subrunch_corresponding_brunch_module", "args": {"module": "styles"} }
 ]
