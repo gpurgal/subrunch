@@ -42,7 +42,12 @@ def defaults(key):
     return default_settings[key]
 
 
+def app_dir(window):
+    return os.path.join(os.path.join(window.folders()[0], defaults('app_dir')))
+
+
 def module_name(filename):
+    print filename
     reg = r"(_controller)?(_view)?(_test)?\.[\w]*"
     return re.sub(reg, '', filename)
 
@@ -109,14 +114,42 @@ class SubrunchCorrespondingBrunchModuleCommand(sublime_plugin.WindowCommand):
     def run(self, module):
         modules = module
 
-        activeModule = os.path.basename(self.window.active_view().file_name())
+        # get current file path relative to app_dir, e.g. ~/my_app/app/views/sub_views/some_view.coffee to /views/sub_views/some_view.coffee
+        activeModule = self.window.active_view().file_name()[len(app_dir(self.window)):]
+        # remove module name - /views/sub_views/some_view.coffee to sub_views/some_view.coffee
+        activeModule = re.sub(r"^/.*?/", '', activeModule)
+        activeModule = module_name(activeModule)
 
-        open_file_if_exists(
-          self.window,
-          os.path.join(
-            self.window.folders()[0],
-            defaults('app_dir'),
-            defaults(modules)['dir'],
-            module_name(activeModule) + defaults(modules)['postfix'] + defaults(modules)['ext']
-          )
+        moduleAbsDir = os.path.join(app_dir(self.window), defaults(modules)['dir'])
+        activeModuleFilename = activeModule + defaults(modules)['postfix'] + defaults(modules)['ext']
+
+        exactCorrespondingPath = os.path.join(
+            moduleAbsDir,
+            activeModuleFilename
         )
+
+        if os.path.isfile(exactCorrespondingPath):
+            self.window.open_file(exactCorrespondingPath)
+        else:
+            self.inexactPaths = self.get_inexact_corresponding_paths(moduleAbsDir, activeModuleFilename)
+            if len(self.inexactPaths) == 0:
+                sublime.status_message('No corresponding ' + modules + ' for ' + activeModule)
+            elif len(self.inexactPaths) == 1:
+                self.window.open_file(self.inexactPaths[0])
+            else:
+                self.window.show_quick_panel(self.inexactPaths, self.openFile)
+
+    def get_inexact_corresponding_paths(self, correspondingModulePath, activeModuleFilename):
+        moduleBaseName = os.path.basename(activeModuleFilename)
+        paths = []
+        for dirname, dirnames, filenames in os.walk(correspondingModulePath):
+            for filename in filenames:
+                if filename == moduleBaseName:
+                    # paths.append(os.path.join(dirname[len(self.window.folders()[0]) + 1:], filename))
+                    paths.append(os.path.join(dirname, filename))
+        return paths
+
+    def openFile(self, index):
+        if index == -1:
+            return
+        open_file_if_exists(self.window, self.inexactPaths[index])
